@@ -1,0 +1,25 @@
+.Movies{
+    box-sizing: border-box;
+    margin-top: 20px;
+    display: block;
+    width: 350px;
+    padding-bottom: 10px;
+    /* height: 600px; */
+    border: 2px solid black;
+}
+
+.Movies img{
+    border: 2px solid black;
+    width: 300px;
+    height: 450px;
+    margin-bottom: 5px;
+}
+
+a{
+    text-decoration: underline;
+}
+
+p{
+    width: 300px;
+    margin: auto;
+}
