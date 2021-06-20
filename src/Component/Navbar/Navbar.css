@@ -1,16 +1,16 @@
-header{
+Header{
     margin: 0;
     overflow: hidden;
     background-color: black;
     height: 60px;
 }
  
-#top-header{    
+.topHeader{    
     text-align: center;
 
 }
 
-#logo{
+.logo{
     float: left;
     padding: none;
     margin: none;
@@ -18,7 +18,7 @@ header{
     width: 30%;
 }
  
-#logo img{
+.logo img{
     width: 80px;
     float: left;
     height: 50px;
@@ -26,27 +26,27 @@ header{
 }   
  
 
-#menu{
+.menu{
     float: right;
     width: 70%;
     height: 100%;
     margin: none;
 }
      
-#menu ul{
+.menu ul{
     text-align: center;
     float: right;
     margin: none;
     background: black;
 }
      
-#menu li{
+.menu li{
     display: inline-block;
     padding: none;
     margin: none;
 }
      
-#menu li a, #menu li span{
+.menu li a, #menu li span{
     display: inline-block;
     padding: 0em 1.5em;
     text-decoration: none;
@@ -55,11 +55,11 @@ header{
     line-height: 40px;
 }
      
-#menu li a{       
+.menu li a{       
     color: #FFF;
 }
      
-#menu li:hover a, #menu li span{
+.menu li:hover a, #menu li span{
     background: rgba(30, 30, 30);
     border-left: 1px solid white;
     text-decoration: none;
