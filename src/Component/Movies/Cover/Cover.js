@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classes from './Movie.css';
+import classes from './Cover.css';
 import axios from '../../../api/base_axios';
 import req from '../../../api/requests';
 
@@ -12,11 +12,12 @@ class Movie extends Component{
     } 
 
     componentDidMount(){
+        const number = Math.floor(Math.random() * 20);
         axios.get(req.fetchTopRated)
         .then(res =>{
-            this.setState({title : res.data.results[0].original_title});
-            this.setState({desc : res.data.results[0].overview});
-            this.setState({img : this.state.img + res.data.results[0].poster_path});
+            this.setState({title : res.data.results[number].original_title});
+            this.setState({desc : res.data.results[number].overview});
+            this.setState({img : this.state.img + res.data.results[number].backdrop_path});
         })
         .catch(err => {
             console.log(err);                
@@ -26,13 +27,19 @@ class Movie extends Component{
     
 
     render(){
+
+        const imageURL = 'url("'+this.state.img+'")';
+        const style = {
+            backgroundImage: imageURL,            
+        };
+        console.log(this.state.desc)
         return(
-            <div className={classes.Movie}>
-                <div className={classes.card} >
-                    <h3>{this.state.title}</h3>
-                    <img src = {this.state.img} />
-                    <p>{this.state.desc.substr(0,100)}.... <a >read more</a></p>    
+            <div className={classes.Cover}>
+                <div className = {classes.details}>
+                    <h2>{this.state.title}</h2>
+                    <p className ={classes.desc}>{this.state.desc}</p>
                 </div>
+                <div className = {classes.image} style = {style}></div>
             </div>
         )
     }
