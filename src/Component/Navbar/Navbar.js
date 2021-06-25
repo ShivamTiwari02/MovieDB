@@ -1,43 +1,38 @@
 import React, {useState} from 'react'
-import classes from './Navbar.css'
+import classes from './Navbar.css';
+import {Link} from 'react-router-dom'
 // import * from '../../assets/'
 
 const Navbar = () => {
 
     const[navbar, setNavbar] = useState(false)
 
-    window.scroll(function(){
-        if ((window).scrollY() >= 50){
-            navbar = setNavbar(true)
+    const changeBackground = () => {
+        if(window.scrollY >= 60){
+            setNavbar(true)
         }
         else{
-            navbar = setNavbar(false)
+            setNavbar(false)
         }
-    })
+    }
 
-    const style = navbar ? {backgroundColor : 'red'} : {backgroundColor : 'transparent'}
+    window.addEventListener('scroll', changeBackground)
 
     return(
-        <header style = {style} className = {classes.Header}>
-            <div className={classes.topHeader}>
+        <div className = {navbar ? [classes.Navbar, classes.active].join(' ') : classes.Navbar}>
                 <div className = {classes.logo}>
-                    <img src="https://media.wired.com/photos/592682057034dc5f91bebab8/4:3/w_929,h_697,c_limit/NetflixLogo2016.jpg" alt="LOGO"/>
+                    <img height = '50px' width= '80px' src="https://media.wired.com/photos/592682057034dc5f91bebab8/4:3/w_929,h_697,c_limit/NetflixLogo2016.jpg" alt="LOGO"/>
                 </div>   
-                <nav>
                 <div className = {classes.menu}>
-                    <ul>
-                        <li className={classes.active}><a href="#">Home</a></li>
-                        <li><a href="#">Upcoming</a></li>
-                        <li><a href="#trending">Favorites</a></li>
-                        <li><a href="#">Sign In</a></li>
-                        <li><a href="#">Sign Up</a></li>
-                    </ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="#">Upcoming</Link></li>
+                        <li><Link to="#trending">Favorites</Link></li>
+                        <li><Link to="/signin">Sign In</Link></li>
+                        <li><Link to="/singup">Sign Up</Link></li>
                 </div>
-                </nav>
-            </div>   
             <div id="header-image-menu">
             </div>
-        </header> 
+        </div> 
     )
 }
 

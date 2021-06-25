@@ -1,10 +1,11 @@
 .Cover{
+    box-sizing: border-box;
     display: block;
     height: 550px;
     text-align: center;
     display: flex;
     overflow: hidden;
-    /* margin-top: 60px; */
+    width: 100%;
 }
 
 .details{
@@ -12,7 +13,7 @@
     width: 40%;
     color: white;
     box-shadow: 100px 0 100px black;
-    padding-top: 5%;
+    padding-top: 10%;
 }
 
 .desc{
@@ -34,4 +35,8 @@
 
 .image:hover{
     height: 600px;
+}
+
+.desc > a:hover{
+    text-decoration: underline;
 }

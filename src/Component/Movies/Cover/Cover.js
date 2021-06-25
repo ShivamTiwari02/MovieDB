@@ -37,7 +37,7 @@ class Movie extends Component{
             <div className={classes.Cover}>
                 <div className = {classes.details}>
                     <h2>{this.state.title}</h2>
-                    <p className ={classes.desc}>{this.state.desc}</p>
+                    <p className ={classes.desc}>{this.state.desc.substr(0,200)}.... <a link = '#'>(read More)</a></p>
                 </div>
                 <div className = {classes.image} style = {style}></div>
             </div>
