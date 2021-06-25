@@ -1,9 +1,10 @@
 .Cover{
     display: block;
-    height: 500px;
+    height: 550px;
     text-align: center;
     display: flex;
     overflow: hidden;
+    /* margin-top: 60px; */
 }
 
 .details{

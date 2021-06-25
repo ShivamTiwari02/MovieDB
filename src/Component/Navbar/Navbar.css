@@ -1,8 +1,11 @@
-Header{
+.Header{
     margin: 0;
     overflow: hidden;
-    background-color: black;
+    /* background-color: black; */
     height: 60px;
+    position: fixed;
+    margin-bottom: 60px;
+    width: 100%;
 }
  
 .topHeader{    
@@ -12,8 +15,6 @@ Header{
 
 .logo{
     float: left;
-    padding: none;
-    margin: none;
     height: 60px;
     width: 30%;
 }
@@ -22,7 +23,8 @@ Header{
     width: 80px;
     float: left;
     height: 50px;
-    padding: 5px 0px;
+    padding-left: 5px;
+    padding-top: 5px;
 }   
  
 
@@ -30,20 +32,17 @@ Header{
     float: right;
     width: 70%;
     height: 100%;
-    margin: none;
 }
      
 .menu ul{
     text-align: center;
     float: right;
-    margin: none;
-    background: black;
+    background: transparent;
 }
      
 .menu li{
     display: inline-block;
-    padding: none;
-    margin: none;
+    height: 50px;
 }
      
 .menu li a, #menu li span{
@@ -52,15 +51,18 @@ Header{
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
-    line-height: 40px;
 }
      
 .menu li a{       
     color: #FFF;
+
 }
      
 .menu li:hover a, #menu li span{
     background: rgba(30, 30, 30);
-    border-left: 1px solid white;
     text-decoration: none;
+}
+
+.active{
+    background-color: red;
 }

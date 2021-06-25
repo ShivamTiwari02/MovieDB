@@ -10,7 +10,7 @@ class Movies extends Component{
             <div className = {classes.Movies}>
                 <Cover/>
                 <div>
-                    <h4>Trending Movies</h4>
+                    <h4 id = "trending">Trending Movies</h4>
                     <MRow request = {req.fetchTrending}/>
                     <h4>Action Movies</h4>
                     <MRow request = {req.fetchActionMovie}/>
