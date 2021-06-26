@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import classes from './Navbar.css';
 import {Link} from 'react-router-dom'
-// import * from '../../assets/'
 
 const Navbar = () => {
 
@@ -24,14 +23,9 @@ const Navbar = () => {
                     <img height = '50px' width= '80px' src="https://media.wired.com/photos/592682057034dc5f91bebab8/4:3/w_929,h_697,c_limit/NetflixLogo2016.jpg" alt="LOGO"/>
                 </div>   
                 <div className = {classes.menu}>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="#">Upcoming</Link></li>
-                        <li><Link to="#trending">Favorites</Link></li>
                         <li><Link to="/signin">Sign In</Link></li>
-                        <li><Link to="/singup">Sign Up</Link></li>
+                        <li><Link to="/signup">Sign Up</Link></li>
                 </div>
-            <div id="header-image-menu">
-            </div>
         </div> 
     )
 }
