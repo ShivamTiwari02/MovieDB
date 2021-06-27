@@ -1,66 +1,56 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 import classes from './Signup.css';
-import {Redirect, Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import getFirebase from '../Firebase';
+import { useAuth } from '../authcontext'
 
-class Signup extends Component {
-    state = {
-        email : "",
-        password: "",
-        confirmPassword: "",
-        signedup: false
-    }
+export default function Signup() {
 
-    emailhandler(e){
-        this.setState({email: e.target.value});
-    }
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const { signup } = useAuth();
+    const [error, setError] = useState('');
+    const history = useHistory();
 
-    passwordhandler(e){
-        this.setState({password: e.target.value})
-    }
+    async function submitHandler(e) {
 
-    confirmPasswordhandler(e){
-        this.setState({confirmPassword: e.target.value})
-    }
-
-    async submitHandler(e){
-        const firebaseInstance = getFirebase();
-        // console.log(this.state.email, this.state.password);
-        e.preventDefault();
-        try {
-            if (firebaseInstance) {
-              const user = await firebaseInstance.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
-              console.log("user", user)
-              this.setState({signedup: true})
-              alert(`Welcome ${this.state.email}!`);
-            }
-          } catch (error) {
-            console.log("error", error);
-            this.setState({signedup: false})
-            alert(error.message);
-          }         
-    }
-
-    render() {
-        if(this.state.signedin){
-            console.log('redirecting');
-            return <Redirect to = '/'/>
+        e.preventDefault()
+        
+        if(passwordRef.current.value !== passwordConfirmRef.current.value){
+            return setError('Password do not match')
         }
-        return (
+
+        try{
+            setError('')
+            await signup(emailRef.current.value, passwordRef.current.value);
+            history.push('/')
+        }
+        catch{
+            setError('Failed to create an account')
+        }
+    }
+
+    // if(this.state.signedin){
+    //     console.log('redirecting');
+    //     return <Redirect to = '/'/>
+    // }
+    return (
             <div className = {classes.SignUp}>
-                <form onSubmit = {(e) => this.submitHandler(e)} className = {classes.login}>
+                <form onSubmit = {(e) => submitHandler(e)} className = {classes.login}>
                     <div className = {classes.title}>Sign Up</div>
+                    {error && <div className = {classes.error}>{error}</div>}
                     <div className ={classes.login_group}>
                         <label className = {classes.login_group_label}>Enter Email</label>
-                        <input className = {classes.login_group_input} type="email" name="email" value = {this.state.email} onChange = {(event) => this.emailhandler(event)}/>
+                        <input className = {classes.login_group_input} type="email" name="email" ref = {emailRef}/>
                     </div>
                     <div className ={classes.login_group}>
                         <label className = {classes.login_group_label}>Enter Password</label>
-                        <input className = {classes.login_group_input} type="password" name="passoword" value = {this.state.password} onChange = {(event) => this.passwordhandler(event)}/>
+                        <input className = {classes.login_group_input} type="password" name="passoword" ref = {passwordRef}/>
                     </div>
                     <div className ={classes.login_group}>
                         <label className = {classes.login_group_label}>Enter Password Again</label>
-                        <input className = {classes.login_group_input} type="password" name="confirmPassoword" value = {this.state.confirmPassword} onChange = {(event) => this.confirmPasswordhandler(event)} />
+                        <input className = {classes.login_group_input} type="password" name="confirmPassoword" ref = {passwordConfirmRef} />
                     </div>       
                     <input className = {classes.login_signin} type="submit" value="Sign Up" />
                     <div className = {classes.redirect}>
@@ -70,7 +60,6 @@ class Signup extends Component {
                 </form>
             </div>
         )
-    }
+    
 }
 
-export default Signup;

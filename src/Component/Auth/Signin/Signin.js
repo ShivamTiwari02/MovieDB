@@ -1,73 +1,56 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 import classes from './Signin.css';
-import {Redirect, Link, useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import getFirebase from '../Firebase';
+import { useAuth } from '../authcontext'
 
-class Signin extends Component {
-    state = {
-        email : "",
-        password: "",
-        confirmPassword: "",
-        signedin: false
-    }
+export default function Signin() {
 
-    emailhandler(e){
-        this.setState({email: e.target.value});
-    }
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const { signin } = useAuth();
+    const [error, setError] = useState('');
+    const history = useHistory();
 
-    passwordhandler(e){
-        this.setState({password: e.target.value})
-    }
+    async function submitHandler(e) {
 
-    confirmPasswordhandler(e){
-        this.setState({confirmPassword: e.target.value})
-    }
+        e.preventDefault()
 
-    async submitHandler(e){
-        const firebaseInstance = getFirebase();
-        // console.log(this.state.email, this.state.password);
-        e.preventDefault();
-        try {
-            if (firebaseInstance) {
-              const user = await firebaseInstance.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
-              console.log("user", user, "Signed In");
-              this.setState({signedin: true});
-              alert(`Logged In`);
-            }
-          } catch (error) {
-            console.log("error", error);
-            this.setState({signedin: false});
-            alert(error.message);
-          }   
-    }
-    
-
-    render() {
-        if(this.state.signedin){
-            console.log('redirecting');
-            return <Redirect to = '/'/>
+        try{
+            setError('')
+            await signin(emailRef.current.value, passwordRef.current.value);
+            history.push('/')
         }
-        return (
+        catch{
+            setError('Failed to sign in')
+        }
+    }
+
+    // if(this.state.signedin){
+    //     console.log('redirecting');
+    //     return <Redirect to = '/'/>
+    // }
+    return (
             <div className = {classes.SignUp}>
-                <form onSubmit = {(e) => this.submitHandler(e)} className = {classes.login}>
-                    <div className = {classes.title}>Sign In</div>
+                <form onSubmit = {(e) => submitHandler(e)} className = {classes.login}>
+                    <div className = {classes.title}>Log In</div>
+                    {error && <div className = {classes.error}>{error}</div>}
                     <div className ={classes.login_group}>
                         <label className = {classes.login_group_label}>Enter Email</label>
-                        <input className = {classes.login_group_input} type="email" name="email" value = {this.state.email} onChange = {(event) => this.emailhandler(event)}/>
+                        <input className = {classes.login_group_input} type="email" name="email" ref = {emailRef}/>
                     </div>
                     <div className ={classes.login_group}>
                         <label className = {classes.login_group_label}>Enter Password</label>
-                        <input className = {classes.login_group_input} type="password" name="passoword" value = {this.state.password} onChange = {(event) => this.passwordhandler(event)}/>
-                    </div>     
+                        <input className = {classes.login_group_input} type="password" name="passoword" ref = {passwordRef}/>
+                    </div>    
                     <input className = {classes.login_signin} type="submit" value="Login" />
                     <div className = {classes.redirect}>
                         <Link to  = "/" className = {classes.links}>Go back</Link>
-                        <Link to  = "/signup" className = {classes.links}>Not yet registered?</Link>
+                        <Link to  = "/signup" className = {classes.links}>Not Yet Registered?</Link>
                     </div>
                 </form>
             </div>
         )
-    }
+    
 }
 
-export default Signin;
