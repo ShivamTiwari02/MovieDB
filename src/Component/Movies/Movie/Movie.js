@@ -4,14 +4,12 @@ import { useLocation, Redirect } from 'react-router';
 import axios from 'axios'
 import { API_KEY } from '../../../api/requests';
 import Navbar from '../../Navbar/Navbar'
-import { useAuth } from '../../Auth/authcontext';
 
 export default function Movie(props) {
 
     const search = useLocation().search;
     const id = new URLSearchParams(search).get('name');
     const [movie, setMovie] = useState({});
-    const { currentUser } = useAuth();
 
     useEffect(() => {        
         axios.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_KEY + '&language=en-US')
@@ -49,7 +47,7 @@ export default function Movie(props) {
                 <h1>{movie.title}</h1>
                 <p>{movie.desc}</p>
                 <p>Release Date : {movie.date}</p>
-                <p>Movie Runtime : {movie.runtime} mins</p>
+                <p>Runtime : {movie.runtime} mins</p>
                 <p>Vote Average : {movie.vote}/10    ( {movie.vote_count} votes )</p>
            </div>
         </div>

@@ -33,16 +33,6 @@ class MRow extends Component {
         });
     }
     render(){
-
-        // const {currentUser} = useAuth();
-        // let path = '';
-        // if(currentUser){
-        //     path = '/poster'
-        // }
-        // else{
-        //     path = '/signin'
-        // }
-
         let top10 = null;
         if(this.state.Top_20.length > 5){
             top10 = this.state.Top_20.map(
@@ -50,7 +40,7 @@ class MRow extends Component {
                     return(
                         <Link to = {{
                             pathname: '/movie',
-                            search: '?name='+movie.id,
+                            search: '?name='+ movie.id,
                             Props:{
                                 title : movie .title,
                                 img: movie.img,
@@ -62,10 +52,6 @@ class MRow extends Component {
                                     <div className={classes.image}>
                                         <img className={classes.image} src = {movie.img} alt='Movie_Poster'></img>
                                     </div>
-                                    {/* <div className={classes.details}>
-                                        <h1>{movie.title}</h1>
-                                        <p>{movie.desc}</p>
-                                    </div> */}
                                 </div> 
                             </div>
                         </Link>

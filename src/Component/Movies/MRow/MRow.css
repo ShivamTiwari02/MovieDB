@@ -1,7 +1,7 @@
 .MRow{
     box-sizing: border-box;
     margin: 10px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     text-align: center;
     padding-bottom: 10px;
@@ -16,6 +16,9 @@
 .card{
     padding: 5px;
     float: left;
+    width: 162px;
+    height: 200px;
+    /* overflow: hidden; */
 }
 
 .MRow img{
